@@ -1,0 +1,11 @@
+.app {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto; /* Asegúrate de que el contenido sea desplazable si se desborda */
+}
