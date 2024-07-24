@@ -61,7 +61,7 @@ const reports = [
   },
   {
     name: 'Faja F1501',
-    status: 'Enviado', // Estado: enviado
+    status: 'Enviado', 
     modifiedDate: 'Jul 20, 2024',
     modifiedBy: 'Carlos Pérez',
   }

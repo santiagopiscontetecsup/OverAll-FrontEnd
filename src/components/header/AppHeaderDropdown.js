@@ -35,7 +35,7 @@ const AppHeaderDropdown = () => {
           <CAvatar
             src={avatar8}
             size="md"
-            style={{ borderRadius: '50%' }} // Aplicar estilo para redondear
+            style={{ borderRadius: '50%' }} 
           />
         </CDropdownToggle>
         <CDropdownMenu className="pt-0" placement="bottom-end">
