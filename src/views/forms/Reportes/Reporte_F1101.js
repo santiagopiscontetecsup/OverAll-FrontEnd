@@ -346,7 +346,7 @@ const FormControl = () => {
                     <CFormInput
                       type="text"
                       id="velocidad"
-                      value={formData.velocidad || ''} // Campo vacío para ingreso del usuario
+                      value={formData.velocidad || ''} 
                       onChange={handleChange}
                       placeholder="Velocidad (m/s)"
                     />
@@ -366,7 +366,7 @@ const FormControl = () => {
                     <CFormInput
                       type="text"
                       id="retardo"
-                      value={formData.retardo || ''} // Campo vacío para ingreso del usuario
+                      value={formData.retardo || ''}
                       onChange={handleChange}
                       placeholder="Retardo (µs)"
                     />
