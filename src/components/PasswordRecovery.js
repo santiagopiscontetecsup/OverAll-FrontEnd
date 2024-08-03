@@ -10,7 +10,7 @@ export default function PasswordRecovery() {
     return String(email)
       .toLowerCase()
       .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\\.,;:\s@"]+\.)+[^<>()[\]\\.,;:\s@"]{2,})$/
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\.,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,})$/
       );
   };
 
@@ -32,46 +32,59 @@ export default function PasswordRecovery() {
   };
 
   return (
-    <Box
-      sx={{
-        marginTop: 8,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
-      <Typography component="h1" variant="h5">
-        Recuperar Contraseña
-      </Typography>
-      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="email"
-          label="Dirección de correo electrónico"
-          name="email"
-          autoComplete="email"
-          autoFocus
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-          disabled={loading}
+    <div style={{ backgroundImage: 'url(/fondo_pag.jpg)', backgroundSize: 'cover', minHeight: '100vh', padding: '2rem' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+          padding: 3,
+          borderRadius: 2,
+          width: '100%',
+          maxWidth: 400,
+          margin: '0 auto',
+          color: 'black' 
+        }}
+      >
+        <Typography
+          component="h1"
+          variant="h5"
+          sx={{ color: 'black', fontFamily: 'Calibri, sans-serif' }} 
         >
-          {loading ? 'Enviando...' : 'Enviar'}
-        </Button>
+          Recuperar Contraseña
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Dirección de correo electrónico"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            sx={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', color: 'black' }}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2, color: 'white' }} 
+            disabled={loading}
+          >
+            {loading ? 'Enviando...' : 'Enviar'}
+          </Button>
+        </Box>
+        <Snackbar open={message.open} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+          <Alert onClose={handleCloseSnackbar} severity={message.severity} sx={{ width: '100%' }}>
+            {message.text}
+          </Alert>
+        </Snackbar>
       </Box>
-      <Snackbar open={message.open} autoHideDuration={6000} onClose={handleCloseSnackbar}>
-        <Alert onClose={handleCloseSnackbar} severity={message.severity} sx={{ width: '100%' }}>
-          {message.text}
-        </Alert>
-      </Snackbar>
-    </Box>
+    </div>
   );
 }

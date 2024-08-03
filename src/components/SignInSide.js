@@ -65,11 +65,11 @@ const SignInSide = () => {
       return;
     }
 
-    const isAuthenticated = login(email, password);
+    const isAuthenticated = login(email, password, selectedCompany);
     if (isAuthenticated) {
       navigate('/dashboard'); 
     } else {
-      setLoginError('The email or password is incorrect.');
+      setLoginError('El usuario, contraseña o la empresa no son correctas.');
     }
   };
 
@@ -98,8 +98,8 @@ const SignInSide = () => {
                     <p className="text-center text-secondary mb-4">Bienvenido al sistema de OverAll Solutions</p>
                     {loginError && <p className="text-center text-danger mb-4">{loginError}</p>}
                     <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon={cilUser} />
+                      <CInputGroupText style={{ backgroundColor: 'black' }}>
+                        <CIcon icon={cilUser} style={{ color: 'white' }} />
                       </CInputGroupText>
                       <CFormInput
                         placeholder="Username"
@@ -112,8 +112,8 @@ const SignInSide = () => {
                       <CFormFeedback invalid>{emailError}</CFormFeedback>
                     </CInputGroup>
                     <CInputGroup className="mb-4">
-                      <CInputGroupText>
-                        <CIcon icon={cilLockLocked} />
+                      <CInputGroupText style={{ backgroundColor: 'black' }}>
+                        <CIcon icon={cilLockLocked} style={{ color: 'white' }} />
                       </CInputGroupText>
                       <CFormInput
                         type="password"
@@ -127,7 +127,7 @@ const SignInSide = () => {
                       <CFormFeedback invalid>{passwordError}</CFormFeedback>
                     </CInputGroup>
                     <CInputGroup className="mb-4">
-                      <CInputGroupText>
+                      <CInputGroupText style={{ backgroundColor: 'white' }}>
                         {selectedCompany && (
                           <img src={`/${companies.find(c => c.companyName === selectedCompany)?.logo}`} alt="Company Logo" style={{ width: '24px' }} />
                         )}
@@ -160,7 +160,7 @@ const SignInSide = () => {
                         </CButton>
                       </CCol>
                       <CCol xs={6} className="text-right">
-                        <Link to="/PasswordRecovery" className="text-primary" style={{ textDecoration: 'none' }}>¿Olvidaste tu Contraseña?</Link>
+                        <Link to="/password-recovery" className="text-primary" style={{ textDecoration: 'none' }}>¿Olvidaste tu Contraseña?</Link>
                       </CCol>
                     </CRow>
                   </CForm>

@@ -12,13 +12,13 @@ import {
   CForm,
   CFormInput,
 } from "@coreui/react";
-import Header from "./components/header/index"; 
-import { users } from "../../../data/dataUser/userData"; 
+import Header from "./components/header/index";
+import { useAuth } from "../../../components/AuthProvider";
 
 const UserProfile = () => {
-  const currentUser = users[0]; 
+  const { currentUser } = useAuth(); 
   const [isEditing, setIsEditing] = useState(false);
-  const [editedUser, setEditedUser] = useState(currentUser);
+  const [editedUser, setEditedUser] = useState({ ...currentUser });
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -26,15 +26,16 @@ const UserProfile = () => {
 
   const handleSaveClick = () => {
     setIsEditing(false);
+    // lógica para guardar los cambios, para enviarlo al backend
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEditedUser({ ...editedUser, [name]: value });
+    setEditedUser((prevState) => ({ ...prevState, [name]: value }));
   };
 
   if (!currentUser) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;  
   }
 
   return (
@@ -65,9 +66,12 @@ const UserProfile = () => {
                     <CListGroupItem>
                       <strong>Phone: </strong>{currentUser.phone}
                     </CListGroupItem>
+                    <CListGroupItem>
+                      <strong>Empresa: </strong>{currentUser.companyName}
+                    </CListGroupItem>
                   </CListGroup>
                   <CButton color="primary" className="mt-3" onClick={handleEditClick}>
-                    Edit Profile
+                    Editar Perfil
                   </CButton>
                 </CCardBody>
               </CCard>
@@ -76,7 +80,7 @@ const UserProfile = () => {
               {isEditing ? (
                 <CCard>
                   <CCardHeader>
-                    <strong>Edit Profile</strong>
+                    <strong>Editar Perfil</strong>
                   </CCardHeader>
                   <CCardBody>
                     <CForm>
@@ -99,34 +103,26 @@ const UserProfile = () => {
                         />
                       </div>
                       <div className="mb-3">
-                        <label htmlFor="celular" className="form-label">Celular</label>
+                        <label htmlFor="phone" className="form-label">Celular</label>
                         <CFormInput
-                          id="celular"
-                          name="celular"
-                          value={editedUser.celular}
+                          id="phone"
+                          name="phone"
+                          value={editedUser.phone}
                           onChange={handleChange}
                         />
                       </div>
                       <div className="mb-3">
-                        <label htmlFor="Ubicacion" className="form-label">Ubicación</label>
+                        <label htmlFor="description" className="form-label">Descripción</label>
                         <CFormInput
-                          id="ubicacion"
-                          name="ubicacion"
-                          value={editedUser.ubicacion}
+                          id="description"
+                          name="description"
+                          value={editedUser.description}
                           onChange={handleChange}
                         />
                       </div>
-                      <div className="mb-3">
-                        <label htmlFor="Descripcion" className="form-label">Descripción</label>
-                        <CFormInput
-                          id="descripcion"
-                          name="descripcion"
-                          value={editedUser.descripcion}
-                          onChange={handleChange}
-                        />
-                      </div>
+                      {/* El campo de Empresa ha sido eliminado del formulario de edición */}
                       <CButton color="primary" onClick={handleSaveClick}>
-                        Save Profile
+                        Guardar Perfil
                       </CButton>
                     </CForm>
                   </CCardBody>
@@ -134,7 +130,7 @@ const UserProfile = () => {
               ) : (
                 <CCard>
                   <CCardHeader>
-                    <strong>Edit Profile</strong>
+                    <strong>Detalles del Perfil</strong>
                   </CCardHeader>
                   <CCardBody>
                     <CListGroup>
@@ -148,10 +144,10 @@ const UserProfile = () => {
                         <strong>Celular: </strong>{currentUser.phone}
                       </CListGroupItem>
                       <CListGroupItem>
-                        <strong>Ubicación: </strong>{currentUser.location}
+                        <strong>Descripción: </strong>{currentUser.description}
                       </CListGroupItem>
                       <CListGroupItem>
-                        <strong>Descripción: </strong>{currentUser.location}
+                        <strong>Empresa: </strong>{currentUser.companyName}
                       </CListGroupItem>
                     </CListGroup>
                   </CCardBody>
