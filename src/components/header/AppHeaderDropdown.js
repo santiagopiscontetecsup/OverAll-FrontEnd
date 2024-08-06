@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import {
   CAvatar,
   CBadge,
@@ -7,7 +8,6 @@ import {
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
-  CButton,
   CListGroup,
   CListGroupItem,
   CModal,
@@ -16,7 +16,6 @@ import {
 } from '@coreui/react';
 import {
   cilBell,
-  cilTask,
   cilUser,
   cilAccountLogout,
 } from '@coreui/icons';
@@ -24,9 +23,17 @@ import CIcon from '@coreui/icons-react';
 
 import avatar8 from './../../assets/images/avatars/logo_principal.png';
 import notifications from "../../data/Notificaciones/notify";
+import { useAuth } from '../../components/AuthProvider'; 
 
 const AppHeaderDropdown = () => {
   const [visible, setVisible] = useState(false);
+  const navigate = useNavigate(); 
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout(); 
+    navigate('/login'); 
+  };
 
   return (
     <>
@@ -40,26 +47,19 @@ const AppHeaderDropdown = () => {
         </CDropdownToggle>
         <CDropdownMenu className="pt-0" placement="bottom-end">
           <CDropdownHeader className="bg-body-secondary fw-semibold mb-2">Account</CDropdownHeader>
-          <CDropdownItem href="#" onClick={() => setVisible(true)}>
+          <CDropdownItem onClick={() => setVisible(true)}>
             <CIcon icon={cilBell} className="me-2" />
             Notificaciones
             <CBadge color="info" className="ms-2">
               42
             </CBadge>
           </CDropdownItem>
-          <CDropdownItem href="#">
-            <CIcon icon={cilTask} className="me-2" />
-            Reportes en proceso
-            <CBadge color="danger" className="ms-2">
-              2
-            </CBadge>
-          </CDropdownItem>
-          <CDropdownItem href="#">
+          <CDropdownItem onClick={() => navigate('/perfil')}>
             <CIcon icon={cilUser} className="me-2" />
             Perfil
           </CDropdownItem>
           <CDropdownHeader className="bg-body-secondary fw-semibold my-2">Cerrar Sesión</CDropdownHeader>
-          <CDropdownItem href="#">
+          <CDropdownItem onClick={handleLogout}>
             <CIcon icon={cilAccountLogout} className="me-2" />
             Logout
           </CDropdownItem>

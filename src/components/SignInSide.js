@@ -67,7 +67,7 @@ const SignInSide = () => {
 
     const isAuthenticated = login(email, password, selectedCompany);
     if (isAuthenticated) {
-      navigate('/dashboard'); 
+      navigate('/perfil'); 
     } else {
       setLoginError('El usuario, contraseña o la empresa no son correctas.');
     }

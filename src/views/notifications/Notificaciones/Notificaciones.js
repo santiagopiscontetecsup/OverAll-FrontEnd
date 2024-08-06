@@ -1,6 +1,6 @@
 import React from 'react';
 import { CCard, CCardBody, CCardHeader, CCol, CRow, CAlert } from '@coreui/react';
-import notifications from '../../../data/Notificaciones/notify'; // Asegúrate de que la ruta es correcta
+import notifications from '../../../data/Notificaciones/notify'; 
 
 const Notificaciones = () => {
   return (

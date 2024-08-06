@@ -55,7 +55,7 @@ const UserProfile = () => {
                     alt="Profile Image"
                     width={150}
                     height={150}
-                    roundedCircle
+                    style={{ borderRadius: "50%" }} // Aplicar estilo de borde redondeado
                   />
                   <h5>{currentUser.name}</h5>
                   <p className="text-muted">{currentUser.access}</p>
@@ -120,7 +120,6 @@ const UserProfile = () => {
                           onChange={handleChange}
                         />
                       </div>
-                      {/* El campo de Empresa ha sido eliminado del formulario de edición */}
                       <CButton color="primary" onClick={handleSaveClick}>
                         Guardar Perfil
                       </CButton>

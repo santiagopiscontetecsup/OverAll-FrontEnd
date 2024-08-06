@@ -1,5 +1,5 @@
-import React from 'react'
-import CIcon from '@coreui/icons-react'
+import React from 'react';
+import CIcon from '@coreui/icons-react';
 import {
   cilBell,
   cilChartPie,
@@ -11,8 +11,8 @@ import {
   cilPlaylistAdd,
   cilNewspaper,
   cilHome
-} from '@coreui/icons'
-import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+} from '@coreui/icons';
+import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react';
 
 const _nav = [
   {
@@ -23,6 +23,7 @@ const _nav = [
     badge: {
       color: 'info',
     },
+    roles: ['Administrador'] 
   },
   {
     component: CNavTitle,
@@ -39,6 +40,7 @@ const _nav = [
         to: '/perfil',
       },
     ],
+    roles: ['Administrador', 'Analista', 'Inspector', 'Usuario']
   },
   {
     component: CNavGroup,
@@ -48,13 +50,15 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Mis Notificaciones',
-        to: '/Notificaciones',
+        to: '/notificaciones',
       },
     ],
+    roles: ['Administrador', 'Analista', 'Inspector', 'Usuario']
   },
   {
     component: CNavTitle,
     name: 'Administrador',
+    roles: ['Administrador']
   },
   {
     component: CNavGroup,
@@ -67,16 +71,19 @@ const _nav = [
         to: '/form_newuser',
       },
     ],
+    roles: ['Administrador']
   },
   {
     component: CNavItem,
     name: 'Roles y Permisos',
     to: '/roles_permission',
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+    roles: ['Administrador']
   },
   {
     component: CNavTitle,
     name: 'Analista',
+    roles: ['Analista']
   },
   {
     component: CNavGroup, 
@@ -90,10 +97,12 @@ const _nav = [
         to: '/reportes',
       },
     ],
+    roles: ['Analista']
   },
   {
     component: CNavTitle,
     name: 'Inspector',
+    roles: ['Inspector']
   },
   {
     component: CNavGroup,
@@ -106,6 +115,7 @@ const _nav = [
         to: '/modified',
       },
     ],
+    roles: ['Inspector']
   },
   {
     component: CNavGroup,
@@ -118,16 +128,19 @@ const _nav = [
         to: '/form-control',
       },
     ],
+    roles: ['Inspector']
   },
   {
     component: CNavTitle,
     name: 'Usuario',
+    roles: ['Usuario']
   },
   {
     component: CNavItem,
     name: 'Graficos',
     to: '/graficos',
     icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+    roles: ['Usuario']
   },
   {
     component: CNavGroup,
@@ -140,7 +153,8 @@ const _nav = [
         to: '/reports_emp',
       },
     ],
+    roles: ['Usuario']
   },
-]
+];
 
-export default _nav
+export default _nav;
