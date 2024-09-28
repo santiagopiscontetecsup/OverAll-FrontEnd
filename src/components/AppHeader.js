@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react'
-import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   CContainer,
@@ -18,7 +17,6 @@ import CIcon from '@coreui/icons-react'
 import {
   cilCommentSquare,
   cilContrast,
-  cilList,
   cilMenu,
   cilMoon,
   cilSun,
@@ -51,11 +49,6 @@ const AppHeader = () => {
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>
         <CHeaderNav className="ms-auto">
-          <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilList} size="lg" />
-            </CNavLink>
-          </CNavItem>
           <CNavItem>
             <CNavLink href="#">
               <CIcon icon={cilCommentSquare} size="lg" />

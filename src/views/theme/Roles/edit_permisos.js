@@ -10,20 +10,21 @@ import {
   CAlert,
 } from '@coreui/react';
 import Select from 'react-select';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-const CrearUsuario = () => {
+const EditarPermisos = () => {
   const [validated, setValidated] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [areasSeleccionadas, setAreasSeleccionadas] = useState([]);
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false); 
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
+  const [password, setPassword] = useState('Password123!'); 
+  const [confirmPassword, setConfirmPassword] = useState('Password123!'); // Contraseña estática para el ejemplo
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [areaError, setAreaError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [passwordValidationError, setPasswordValidationError] = useState(false);
+  const [isActive, setIsActive] = useState(true); // Estado para la actividad
 
   const options = [
     { value: 'chancado', label: 'Chancado' },
@@ -35,7 +36,7 @@ const CrearUsuario = () => {
 
   const handleAreaChange = (selectedOptions) => {
     setAreasSeleccionadas(selectedOptions);
-    setAreaError(false); 
+    setAreaError(false);
   };
 
   const togglePasswordVisibility = () => {
@@ -62,12 +63,9 @@ const CrearUsuario = () => {
     );
   };
 
-  // Añadimos un efecto que valide la contraseña a medida que el usuario escribe
   useEffect(() => {
-    if (password) {
-      const isPasswordValid = validatePassword(password);
-      setPasswordValidationError(!isPasswordValid);
-    }
+    const isPasswordValid = validatePassword(password);
+    setPasswordValidationError(!isPasswordValid);
   }, [password]);
 
   const handleSubmit = (event) => {
@@ -92,19 +90,19 @@ const CrearUsuario = () => {
       }
 
       if (password !== confirmPassword) {
-        setPasswordError(true); // Establece el error de contraseña si no coinciden
+        setPasswordError(true);
       } else {
-        setPasswordError(false); // Resetea el error si las contraseñas coinciden
+        setPasswordError(false);
       }
 
       if (!isPasswordValid) {
-        setPasswordValidationError(true); // Establece el error de validación de contraseña
+        setPasswordValidationError(true);
       } else {
-        setPasswordValidationError(false); // Resetea el error si la contraseña es válida
+        setPasswordValidationError(false);
       }
     } else {
       event.preventDefault();
-      setSuccessMessage('Usuario creado exitosamente.');
+      setSuccessMessage('Usuario editado exitosamente.');
       setErrorMessage('');
       console.log('Áreas seleccionadas:', areasSeleccionadas);
     }
@@ -123,12 +121,12 @@ const CrearUsuario = () => {
       >
         <CCol md={6}>
           <CFormLabel htmlFor="nombre">Nombre</CFormLabel>
-          <CFormInput type="text" id="nombre" placeholder="Introduce el nombre del usuario" required />
+          <CFormInput type="text" id="nombre" defaultValue="Juan Pérez" required />
           <CFormFeedback invalid>Por favor, proporciona un nombre válido.</CFormFeedback>
         </CCol>
         <CCol md={6}>
           <CFormLabel htmlFor="email">Correo electrónico</CFormLabel>
-          <CFormInput type="email" id="email" placeholder="Introduce el correo electrónico" required />
+          <CFormInput type="email" id="email" defaultValue="juan.perez@example.com" required />
           <CFormFeedback invalid>Por favor, proporciona una dirección de correo electrónico válida.</CFormFeedback>
         </CCol>
 
@@ -137,15 +135,14 @@ const CrearUsuario = () => {
           <CFormLabel htmlFor="password">Contraseña</CFormLabel>
           <div className="input-group">
             <CFormInput
-              type={showPassword ? "text" : "password"} // Muestra la contraseña o la oculta
+              type={showPassword ? "text" : "password"}
               id="password"
-              placeholder="Introduce la contraseña"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <button type="button" onClick={togglePasswordVisibility} className="btn btn-outline-secondary">
-              {showPassword ? <FaEyeSlash /> : <FaEye />} {/* Ojo abierto o cerrado */}
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
           <div className="text-muted">
@@ -163,9 +160,8 @@ const CrearUsuario = () => {
           <CFormLabel htmlFor="confirmPassword">Confirmar Contraseña</CFormLabel>
           <div className="input-group">
             <CFormInput
-              type={showConfirmPassword ? "text" : "password"} // Muestra la confirmación de contraseña o la oculta
+              type={showConfirmPassword ? "text" : "password"}
               id="confirmPassword"
-              placeholder="Confirma la contraseña"
               required
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -184,10 +180,10 @@ const CrearUsuario = () => {
         {/* Otros campos */}
         <CCol md={6}>
           <CFormLabel htmlFor="contrato">Contrato</CFormLabel>
-          <CFormSelect id="contrato" required>
+          <CFormSelect id="contrato" required defaultValue="bambas">
             <option value="">Selecciona un contrato...</option>
             <option value="bambas">Bambas</option>
-            <option value="bambas">OverAll</option>
+            <option value="overall">OverAll</option>
           </CFormSelect>
           <CFormFeedback invalid>Por favor, selecciona un contrato.</CFormFeedback>
         </CCol>
@@ -199,7 +195,7 @@ const CrearUsuario = () => {
             options={options}
             isMulti
             onChange={handleAreaChange}
-            className={`basic-multi-select ${areaError ? 'is-invalid' : ''}`} // Aplica la clase de error si es necesario
+            className={`basic-multi-select ${areaError ? 'is-invalid' : ''}`}
             classNamePrefix="select"
             placeholder="Selecciona las áreas..."
             required
@@ -211,7 +207,7 @@ const CrearUsuario = () => {
 
         <CCol md={6}>
           <CFormLabel htmlFor="rol">Usuario</CFormLabel>
-          <CFormSelect id="rol" required>
+          <CFormSelect id="rol" required defaultValue="administrador">
             <option value="">Selecciona un rol...</option>
             <option value="administrador">Administrador</option>
             <option value="analista">Analista</option>
@@ -222,9 +218,25 @@ const CrearUsuario = () => {
           <CFormFeedback invalid>Por favor, selecciona un rol.</CFormFeedback>
         </CCol>
 
+        {/* Checkbox de actividad */}
+        <CCol md={6}>
+          <CFormLabel>Estado de la cuenta</CFormLabel>
+          <div>
+            <input
+              type="checkbox"
+              id="actividad"
+              checked={!isActive}
+              onChange={() => setIsActive(!isActive)}
+            />
+            <CFormLabel htmlFor="actividad" className="ms-2">
+              Cuenta desactivada
+            </CFormLabel>
+          </div>
+        </CCol>
+
         <CCol xs={12}>
           <CButton color="primary" type="submit">
-            Crear Usuario
+            Editar Usuario
           </CButton>
         </CCol>
       </CForm>
@@ -232,4 +244,4 @@ const CrearUsuario = () => {
   );
 };
 
-export default CrearUsuario;
+export default EditarPermisos;

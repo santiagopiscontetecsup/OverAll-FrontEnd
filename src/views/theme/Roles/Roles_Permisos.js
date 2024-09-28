@@ -1,16 +1,20 @@
-import React, { useState } from 'react'
-import { CCard, CCardHeader, CCardBody, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow, CFormSelect, CFormInput, CButton } from '@coreui/react'
-import avatar1 from 'src/assets/images/avatars/1.jpg'
-import avatar2 from 'src/assets/images/avatars/2.jpg'
-import avatar3 from 'src/assets/images/avatars/3.jpg'
-import avatar4 from 'src/assets/images/avatars/4.jpg'
-import avatar5 from 'src/assets/images/avatars/5.jpg'
-import avatar6 from 'src/assets/images/avatars/6.jpg'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Cambia useHistory por useNavigate
+import { CCard, CCardHeader, CCardBody, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow, CFormSelect, CFormInput, CButton } from '@coreui/react';
+import { CIcon } from '@coreui/icons-react';
+import { cilTrash, cilPencil } from '@coreui/icons';
+import avatar1 from 'src/assets/images/avatars/1.jpg';
+import avatar2 from 'src/assets/images/avatars/2.jpg';
+import avatar3 from 'src/assets/images/avatars/3.jpg';
+import avatar4 from 'src/assets/images/avatars/4.jpg';
+import avatar5 from 'src/assets/images/avatars/5.jpg';
+import avatar6 from 'src/assets/images/avatars/6.jpg';
 
-const roles = ['Administrador', 'Usuario', 'Analista', 'Inspector']
+const roles = ['Administrador', 'Supervisor', 'Usuario', 'Analista', 'Inspector'];
 
 const tableExample = [
   {
+    id: 1,
     avatar: { src: avatar1, status: 'success' },
     user: {
       name: 'Juan Pérez',
@@ -28,6 +32,7 @@ const tableExample = [
     activity: 'Hace 10 segundos',
   },
   {
+    id: 2,
     avatar: { src: avatar2, status: 'danger' },
     user: {
       name: 'Ana Gómez',
@@ -45,6 +50,7 @@ const tableExample = [
     activity: 'Hace 5 minutos',
   },
   {
+    id: 3,
     avatar: { src: avatar3, status: 'warning' },
     user: {
       name: 'Carlos Ruiz',
@@ -62,6 +68,7 @@ const tableExample = [
     activity: 'Hace 20 minutos',
   },
   {
+    id: 4,
     avatar: { src: avatar4, status: 'primary' },
     user: {
       name: 'Sofía Martínez',
@@ -79,6 +86,7 @@ const tableExample = [
     activity: 'Hace 1 hora',
   },
   {
+    id: 5,
     avatar: { src: avatar5, status: 'success' },
     user: {
       name: 'Laura Gómez',
@@ -96,6 +104,7 @@ const tableExample = [
     activity: 'Hace 2 horas',
   },
   {
+    id: 6,
     avatar: { src: avatar6, status: 'danger' },
     user: {
       name: 'David López',
@@ -112,92 +121,106 @@ const tableExample = [
     payment: { name: 'Visa', icon: 'cib-cc-visa' },
     activity: 'Hace 30 minutos',
   },
-]
+];
 
 const Roles_permission = () => {
-  const [users, setUsers] = useState(tableExample)
+  const [users, setUsers] = useState(tableExample);
+  const navigate = useNavigate(); // Cambia a useNavigate
 
   const handleRoleChange = (index, event) => {
-    const newUsers = [...users]
-    newUsers[index].user.role = event.target.value
-    setUsers(newUsers)
-  }
+    const newUsers = [...users];
+    newUsers[index].user.role = event.target.value;
+    setUsers(newUsers);
+  };
 
   const handleAgeChange = (index, event) => {
-    const newUsers = [...users]
-    newUsers[index].user.age = event.target.value
-    setUsers(newUsers)
-  }
+    const newUsers = [...users];
+    newUsers[index].user.age = event.target.value;
+    setUsers(newUsers);
+  };
+
+  const handleDelete = (index) => {
+    const newUsers = users.filter((_, i) => i !== index);
+    setUsers(newUsers);
+  };
+
+  const handleEdit = (index) => {
+    // Redirige a la página de edición de usuario
+    navigate(`/editar-usuario/${users[index].id}`); // Usar id para la redirección
+  };
 
   return (
-    <>
-      <CCard className="mb-4">
-        <CCardHeader>
-          Usuarios
-        </CCardHeader>
-        <CCardBody>
-          <CTable align="middle" className="mb-0 border" hover responsive>
-            <CTableHead className="text-nowrap">
-              <CTableRow>
-                <CTableHeaderCell className="bg-body-tertiary text-center">
-                  <i className="cil cil-people"></i>
-                </CTableHeaderCell>
-                <CTableHeaderCell className="bg-body-tertiary">Nombre Completo</CTableHeaderCell>
-                <CTableHeaderCell className="bg-body-tertiary text-center">
-                  Edad
-                </CTableHeaderCell>
-                <CTableHeaderCell className="bg-body-tertiary">Cargo</CTableHeaderCell>
-                <CTableHeaderCell className="bg-body-tertiary">Actividad</CTableHeaderCell>
-                <CTableHeaderCell className="bg-body-tertiary text-center">
-                  Acción
-                </CTableHeaderCell>
+    <CCard className="mb-4">
+      <CCardHeader>
+        Usuarios
+      </CCardHeader>
+      <CCardBody>
+        <CTable align="middle" className="mb-0 border" hover responsive>
+          <CTableHead className="text-nowrap">
+            <CTableRow>
+              <CTableHeaderCell className="bg-body-tertiary text-center">
+                <i className="cil cil-people"></i>
+              </CTableHeaderCell>
+              <CTableHeaderCell className="bg-body-tertiary">Nombre Completo</CTableHeaderCell>
+              <CTableHeaderCell className="bg-body-tertiary text-center">
+                Edad
+              </CTableHeaderCell>
+              <CTableHeaderCell className="bg-body-tertiary">Cargo</CTableHeaderCell>
+              <CTableHeaderCell className="bg-body-tertiary">Actividad</CTableHeaderCell>
+              <CTableHeaderCell className="bg-body-tertiary text-center">
+                Acción
+              </CTableHeaderCell>
+            </CTableRow>
+          </CTableHead>
+          <CTableBody>
+            {users.map((item, index) => (
+              <CTableRow key={item.id}>
+                <CTableDataCell className="text-center">
+                  <img src={item.avatar.src} alt="avatar" className={`avatar ${item.avatar.status}`} />
+                </CTableDataCell>
+                <CTableDataCell>
+                  <div>{item.user.name}</div>
+                  <div className="small text-body-secondary text-nowrap">
+                    Registrado: {item.user.registered}
+                  </div>
+                </CTableDataCell>
+                <CTableDataCell className="text-center">
+                  <CFormInput 
+                    type="number" 
+                    value={item.user.age} 
+                    onChange={(e) => handleAgeChange(index, e)} 
+                    className="text-center"
+                  />
+                </CTableDataCell>
+                <CTableDataCell>
+                  <CFormSelect 
+                    value={item.user.role} 
+                    onChange={(e) => handleRoleChange(index, e)} 
+                  >
+                    {roles.map((role, idx) => (
+                      <option key={idx} value={role}>{role}</option>
+                    ))}
+                  </CFormSelect>
+                </CTableDataCell>
+                <CTableDataCell>
+                  <div className="small text-body-secondary text-nowrap">Último inicio de sesión</div>
+                  <div className="fw-semibold text-nowrap">{item.activity}</div>
+                </CTableDataCell>
+                <CTableDataCell className="text-center">
+                  <CButton color="link" onClick={() => handleEdit(index)}>
+                    <CIcon icon={cilPencil} />
+                  </CButton>
+                  <CButton color="link" onClick={() => handleDelete(index)}>
+                    <CIcon icon={cilTrash} />
+                  </CButton>
+                </CTableDataCell>
               </CTableRow>
-            </CTableHead>
-            <CTableBody>
-              {users.map((item, index) => (
-                <CTableRow key={index}>
-                  <CTableDataCell className="text-center">
-                    <img src={item.avatar.src} alt="avatar" className={`avatar ${item.avatar.status}`} />
-                  </CTableDataCell>
-                  <CTableDataCell>
-                    <div>{item.user.name}</div>
-                    <div className="small text-body-secondary text-nowrap">
-                      Registrado: {item.user.registered}
-                    </div>
-                  </CTableDataCell>
-                  <CTableDataCell className="text-center">
-                    <CFormInput 
-                      type="number" 
-                      value={item.user.age} 
-                      onChange={(e) => handleAgeChange(index, e)} 
-                      className="text-center"
-                    />
-                  </CTableDataCell>
-                  <CTableDataCell>
-                    <CFormSelect 
-                      value={item.user.role} 
-                      onChange={(e) => handleRoleChange(index, e)} 
-                    >
-                      {roles.map((role, idx) => (
-                        <option key={idx} value={role}>{role}</option>
-                      ))}
-                    </CFormSelect>
-                  </CTableDataCell>
-                  <CTableDataCell>
-                    <div className="small text-body-secondary text-nowrap">Último inicio de sesión</div>
-                    <div className="fw-semibold text-nowrap">{item.activity}</div>
-                  </CTableDataCell>
-                  <CTableDataCell className="text-center">
-                    <CButton color="primary">Editar</CButton>
-                  </CTableDataCell>
-                </CTableRow>
-              ))}
-            </CTableBody>
-          </CTable>
-        </CCardBody>
-      </CCard>
-    </>
-  )
+            ))}
+          </CTableBody>
+        </CTable>
+      </CCardBody>
+    </CCard>
+  );
 }
 
-export default Roles_permission
+export default Roles_permission;

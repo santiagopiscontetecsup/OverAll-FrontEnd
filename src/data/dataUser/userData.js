@@ -59,4 +59,16 @@ export const users = [
     description: "Thiago es un usuario común del sistema, con acceso limitado en comparación con los roles administrativos. Se encarga de tareas diarias y de utilizar las funcionalidades del sistema según su nivel de acceso.",
     companyName: "Bambas"
   },
+  {
+    id: 6,
+    name: "Lin Guzman",
+    email: "supervisor@gmail.com",
+    age: 22,
+    phone: "940874416",
+    access: "Supervisor",
+    password: "admin123",
+    profileImage: "/src/assets/Header/foto_perfil.jpg",
+    description: "Lin es el analista del equipo, especializado en la recolección y análisis de datos. Su trabajo es crucial para la toma de decisiones basada en datos y para proporcionar informes precisos y detallados.",
+    companyName: "OverAll Solutions"
+  },
 ];

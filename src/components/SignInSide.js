@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthProvider'; 
+import { useAuth } from './AuthProvider';
 import {
   CButton,
   CCard,
@@ -10,54 +10,35 @@ import {
   CContainer,
   CForm,
   CFormInput,
-  CInputGroup,
-  CInputGroupText,
   CRow,
-  CFormSelect,
   CFormFeedback
 } from '@coreui/react';
-import CIcon from '@coreui/icons-react';
-import { cilLockLocked, cilUser } from '@coreui/icons';
 import { Link } from 'react-router-dom';
 
 const SignInSide = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [selectedCompany, setSelectedCompany] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [companyError, setCompanyError] = useState('');
   const [loginError, setLoginError] = useState('');
   const navigate = useNavigate();
   const { login } = useAuth();
-
-  const companies = [
-    { companyName: 'Cerro Verde', logo: 'logo_cerroverde.png' },
-    { companyName: 'Bambas', logo: 'bambas.png' },
-    { companyName: 'OverAll Solutions', logo: 'logo_principal.png' }
-  ];
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setEmailError('');
     setPasswordError('');
-    setCompanyError('');
     setLoginError('');
 
     let isValid = true;
 
     if (!email || !validateEmail(email)) {
-      setEmailError('Please enter a valid email address.');
+      setEmailError('Por favor, introduce una dirección de correo válida.');
       isValid = false;
     }
 
     if (!password) {
-      setPasswordError('Please enter your password.');
-      isValid = false;
-    }
-
-    if (!selectedCompany) {
-      setCompanyError('Please select your company.');
+      setPasswordError('Por favor, introduce tu contraseña.');
       isValid = false;
     }
 
@@ -65,11 +46,11 @@ const SignInSide = () => {
       return;
     }
 
-    const isAuthenticated = login(email, password, selectedCompany);
+    const isAuthenticated = login(email, password);
     if (isAuthenticated) {
-      navigate('/perfil'); 
+      navigate('/perfil');
     } else {
-      setLoginError('El usuario, contraseña o la empresa no son correctas.');
+      setLoginError('El usuario o contraseña no son correctos.');
     }
   };
 
@@ -78,91 +59,92 @@ const SignInSide = () => {
     return re.test(email);
   };
 
-  const handleCompanyChange = (event) => {
-    setSelectedCompany(event.target.value);
+  const inputStyle = {
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderColor: '#ccc',
+    borderRadius: '5px',
+    fontSize: '0.85rem',
+    padding: '8px',
+    color: 'black' // Color del texto a negro
   };
 
   return (
-    <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center" style={{ backgroundImage: 'url(/fondo_pag.jpg)', backgroundSize: 'cover' }}>
+    <div className="min-vh-100 d-flex flex-row align-items-center justify-content-center" style={{ backgroundImage: 'url(/fondo_pag.jpg)', backgroundSize: 'cover' }}>
       <CContainer>
         <CRow className="justify-content-center">
-          <CCol md={8}>
+          <CCol md={4}> {/* Reducir el tamaño de la columna */}
             <CCardGroup>
-              <CCard className="p-4" style={{ width: '100%', maxWidth: '500px', margin: 'auto', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
+              <CCard className="p-3" style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: '10px', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', width: 'auto', maxWidth: '100%', minWidth: '280px' }}>
                 <CCardBody>
-                  <div className="text-center mb-4">
-                    <img src="/logo_empresa.png" alt="Static Logo" style={{ width: '150px' }} />
+                  <div className="text-center mb-3">
+                    <img src="/logo_empresa.png" alt="Static Logo" style={{ width: '140px' }} /> {/* Reducir tamaño del logo */}
                   </div>
                   <CForm onSubmit={handleSubmit}>
-                    <h1 className="text-center mb-4" style={{ color: '#333', fontSize: '2.0rem', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)' }}>Ingreso al Sistema</h1>
-                    <p className="text-center text-secondary mb-4">Bienvenido al sistema de OverAll Solutions</p>
-                    {loginError && <p className="text-center text-danger mb-4">{loginError}</p>}
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText style={{ backgroundColor: 'black' }}>
-                        <CIcon icon={cilUser} style={{ color: 'white' }} />
-                      </CInputGroupText>
-                      <CFormInput
-                        placeholder="Username"
-                        autoComplete="username"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        invalid={!!emailError}
-                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', color: 'black' }}
-                      />
-                      <CFormFeedback invalid>{emailError}</CFormFeedback>
-                    </CInputGroup>
-                    <CInputGroup className="mb-4">
-                      <CInputGroupText style={{ backgroundColor: 'black' }}>
-                        <CIcon icon={cilLockLocked} style={{ color: 'white' }} />
-                      </CInputGroupText>
-                      <CFormInput
-                        type="password"
-                        placeholder="Password"
-                        autoComplete="current-password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        invalid={!!passwordError}
-                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', color: 'black' }}
-                      />
-                      <CFormFeedback invalid>{passwordError}</CFormFeedback>
-                    </CInputGroup>
-                    <CInputGroup className="mb-4">
-                      <CInputGroupText style={{ backgroundColor: 'white' }}>
-                        {selectedCompany && (
-                          <img src={`/${companies.find(c => c.companyName === selectedCompany)?.logo}`} alt="Company Logo" style={{ width: '24px' }} />
-                        )}
-                      </CInputGroupText>
-                      <CFormSelect
-                        value={selectedCompany}
-                        onChange={handleCompanyChange}
-                        aria-label="Select Your Company"
-                        invalid={!!companyError}
-                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', color: 'black' }}
+                    <h1 className="text-center mb-3" style={{ color: '#333', fontSize: '1.5rem', fontWeight: 'normal' }}>Ingreso al Sistema</h1>
+                    <p className="text-center text-secondary mb-3" style={{ fontWeight: 'normal' }}>Bienvenido al sistema de OverAll Solutions</p>
+                    {loginError && <p className="text-center text-danger mb-3">{loginError}</p>}
+
+                    {/* Correo Electrónico */}
+                    <label htmlFor="email" style={{ color: '#333', fontWeight: 'normal', fontSize: '0.85rem' }}>Correo Electrónico</label>
+                    <CFormInput
+                      id="email"
+                      className="mb-2"
+                      placeholder="Correo electrónico"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      invalid={!!emailError}
+                      style={inputStyle}
+                      type="email"
+                    />
+                    <CFormFeedback invalid>{emailError}</CFormFeedback>
+
+                    {/* Contraseña */}
+                    <label htmlFor="password" style={{ color: '#333', fontWeight: 'normal', fontSize: '0.85rem' }}>Contraseña</label>
+                    <CFormInput
+                      id="password"
+                      type="password"
+                      className="mb-2"
+                      placeholder="Contraseña"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      invalid={!!passwordError}
+                      style={inputStyle}
+                    />
+                    <CFormFeedback invalid>{passwordError}</CFormFeedback>
+
+                    {/* Checkbox */}
+                    <div className="d-flex justify-content-between align-items-center mb-2">
+                      <div className="d-flex align-items-center">
+                        <input type="checkbox" id="connected" className="mr-2" />
+                        <label htmlFor="connected" className="ml-2" style={{ color: '#666', fontSize: '0.85rem', fontWeight: 'normal', marginLeft: '8px' }}>Permanecer conectado</label>
+                      </div>
+                    </div>
+
+                    {/* Enlace de recuperación */}
+                    <div className="text-center mb-2">
+                      <Link to="/password-recovery" className="text-primary" style={{ textDecoration: 'none', fontSize: '0.8rem', fontWeight: 'normal' }}>
+                        ¿Olvidaste tu contraseña?
+                      </Link>
+                    </div>
+
+                    {/* Botón de Login */}
+                    <div className="text-center">
+                      <CButton
+                        color="primary"
+                        type="submit"
+                        style={{
+                          width: '100%',
+                          backgroundColor: '#007bff',
+                          border: 'none',
+                          padding: '10px', // Reducir padding
+                          borderRadius: '5px',
+                          fontWeight: 'normal',
+                          fontSize: '0.9rem' // Ajustar tamaño de fuente
+                        }}
                       >
-                        <option value="">Select Your Company</option>
-                        {companies.map((company) => (
-                          <option key={company.companyName} value={company.companyName}>
-                            {company.companyName}
-                          </option>
-                        ))}
-                      </CFormSelect>
-                      <CFormFeedback invalid>{companyError}</CFormFeedback>
-                    </CInputGroup>
-                    <CRow className="mt-4">
-                      <CCol xs={6}>
-                        <CButton 
-                          color="primary" 
-                          className="px-3"
-                          type="submit" 
-                          style={{ backgroundColor: 'rgba(0, 123, 255, 0.8)', borderColor: 'rgba(0, 123, 255, 0.8)', width: '100%' }}
-                        >
-                          Login
-                        </CButton>
-                      </CCol>
-                      <CCol xs={6} className="text-right">
-                        <Link to="/password-recovery" className="text-primary" style={{ textDecoration: 'none' }}>¿Olvidaste tu Contraseña?</Link>
-                      </CCol>
-                    </CRow>
+                        Ingresar
+                      </CButton>
+                    </div>
                   </CForm>
                 </CCardBody>
               </CCard>

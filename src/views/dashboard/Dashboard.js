@@ -242,53 +242,6 @@ const Dashboard = () => {
                 </CCol>
               </CRow>
               <br />
-              <h5>Detalles de Inspecciones</h5>
-              <CTable align="middle" className="mb-0 border" hover responsive>
-                <CTableHead color="light">
-                  <CTableRow>
-                    <CTableHeaderCell className="text-center">
-                      <CIcon icon={cilPeople} />
-                    </CTableHeaderCell>
-                    <CTableHeaderCell>Inspector</CTableHeaderCell>
-                    <CTableHeaderCell className="text-center">País</CTableHeaderCell>
-                    <CTableHeaderCell>Estado</CTableHeaderCell>
-                    <CTableHeaderCell>Completado</CTableHeaderCell>
-                  </CTableRow>
-                </CTableHead>
-                <CTableBody>
-                  {inspectionsTable.map((item, index) => (
-                    <CTableRow key={index}>
-                      <CTableDataCell className="text-center">
-                        <CAvatar size="md" src={item.avatar.src} status={item.avatar.status} />
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <div>{item.inspector.name}</div>
-                        <div className="small text-body-secondary">
-                          <span>{item.inspector.new ? 'Nuevo' : 'Recurrente'}</span> | Registrado:{' '}
-                          {item.inspector.registered}
-                        </div>
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-                        <CIcon size="xl" icon={cilUser} />
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <div className="clearfix">
-                          <div className="float-start">
-                            <strong>{item.status.value}%</strong>
-                          </div>
-                          <div className="float-end">
-                            <small className="text-body-secondary">{item.status.period}</small>
-                          </div>
-                        </div>
-                        <CProgress thin color={item.status.color} value={item.status.value} />
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <div className="small text-body-secondary">{item.completion}</div>
-                      </CTableDataCell>
-                    </CTableRow>
-                  ))}
-                </CTableBody>
-              </CTable>
             </CCardBody>
           </CCard>
         </CCol>
