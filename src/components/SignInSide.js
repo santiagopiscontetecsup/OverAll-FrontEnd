@@ -65,26 +65,25 @@ const SignInSide = () => {
     borderRadius: '5px',
     fontSize: '0.85rem',
     padding: '8px',
-    color: 'black' // Color del texto a negro
+    color: 'black' 
   };
 
   return (
     <div className="min-vh-100 d-flex flex-row align-items-center justify-content-center" style={{ backgroundImage: 'url(/fondo_pag.jpg)', backgroundSize: 'cover' }}>
       <CContainer>
         <CRow className="justify-content-center">
-          <CCol md={4}> {/* Reducir el tamaño de la columna */}
+          <CCol md={4}> 
             <CCardGroup>
               <CCard className="p-3" style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: '10px', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', width: 'auto', maxWidth: '100%', minWidth: '280px' }}>
                 <CCardBody>
                   <div className="text-center mb-3">
-                    <img src="/logo_empresa.png" alt="Static Logo" style={{ width: '140px' }} /> {/* Reducir tamaño del logo */}
+                    <img src="/LOG02.png" alt="Static Logo" style={{ width: '140px' }} /> {/* Reducir tamaño del logo */}
                   </div>
                   <CForm onSubmit={handleSubmit}>
                     <h1 className="text-center mb-3" style={{ color: '#333', fontSize: '1.5rem', fontWeight: 'normal' }}>Ingreso al Sistema</h1>
                     <p className="text-center text-secondary mb-3" style={{ fontWeight: 'normal' }}>Bienvenido al sistema de OverAll Solutions</p>
                     {loginError && <p className="text-center text-danger mb-3">{loginError}</p>}
 
-                    {/* Correo Electrónico */}
                     <label htmlFor="email" style={{ color: '#333', fontWeight: 'normal', fontSize: '0.85rem' }}>Correo Electrónico</label>
                     <CFormInput
                       id="email"
@@ -98,7 +97,6 @@ const SignInSide = () => {
                     />
                     <CFormFeedback invalid>{emailError}</CFormFeedback>
 
-                    {/* Contraseña */}
                     <label htmlFor="password" style={{ color: '#333', fontWeight: 'normal', fontSize: '0.85rem' }}>Contraseña</label>
                     <CFormInput
                       id="password"
@@ -112,7 +110,6 @@ const SignInSide = () => {
                     />
                     <CFormFeedback invalid>{passwordError}</CFormFeedback>
 
-                    {/* Checkbox */}
                     <div className="d-flex justify-content-between align-items-center mb-2">
                       <div className="d-flex align-items-center">
                         <input type="checkbox" id="connected" className="mr-2" />
@@ -120,14 +117,12 @@ const SignInSide = () => {
                       </div>
                     </div>
 
-                    {/* Enlace de recuperación */}
                     <div className="text-center mb-2">
                       <Link to="/password-recovery" className="text-primary" style={{ textDecoration: 'none', fontSize: '0.8rem', fontWeight: 'normal' }}>
                         ¿Olvidaste tu contraseña?
                       </Link>
                     </div>
 
-                    {/* Botón de Login */}
                     <div className="text-center">
                       <CButton
                         color="primary"
@@ -136,10 +131,10 @@ const SignInSide = () => {
                           width: '100%',
                           backgroundColor: '#007bff',
                           border: 'none',
-                          padding: '10px', // Reducir padding
+                          padding: '10px', 
                           borderRadius: '5px',
                           fontWeight: 'normal',
-                          fontSize: '0.9rem' // Ajustar tamaño de fuente
+                          fontSize: '0.9rem' 
                         }}
                       >
                         Ingresar

@@ -34,7 +34,7 @@ const MainChart = () => {
         ref={chartRef}
         style={{ height: '300px', marginTop: '40px' }}
         data={{
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+          labels: ['Chancado', 'Molienda', 'Filtro', 'Moly', 'Flotación'],
           datasets: [
             {
               label: 'My First dataset',

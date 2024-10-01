@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Cambia useHistory por useNavigate
-import { CCard, CCardHeader, CCardBody, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow, CFormSelect, CFormInput, CButton } from '@coreui/react';
+import { useNavigate } from 'react-router-dom';
+import { CCard, CCardHeader, CCardBody, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow, CButton } from '@coreui/react';
 import { CIcon } from '@coreui/icons-react';
 import { cilTrash, cilPencil } from '@coreui/icons';
 import avatar1 from 'src/assets/images/avatars/1.jpg';
@@ -10,8 +10,6 @@ import avatar4 from 'src/assets/images/avatars/4.jpg';
 import avatar5 from 'src/assets/images/avatars/5.jpg';
 import avatar6 from 'src/assets/images/avatars/6.jpg';
 
-const roles = ['Administrador', 'Supervisor', 'Usuario', 'Analista', 'Inspector'];
-
 const tableExample = [
   {
     id: 1,
@@ -19,16 +17,8 @@ const tableExample = [
     user: {
       name: 'Juan Pérez',
       role: 'Administrador',
-      age: 30,
       registered: 'Ene 1, 2023',
     },
-    country: { name: 'USA', flag: 'cif-us' },
-    usage: {
-      value: 50,
-      period: 'Jun 11, 2023 - Jul 10, 2023',
-      color: 'success',
-    },
-    payment: { name: 'Mastercard', icon: 'cib-cc-mastercard' },
     activity: 'Hace 10 segundos',
   },
   {
@@ -37,16 +27,8 @@ const tableExample = [
     user: {
       name: 'Ana Gómez',
       role: 'Usuario',
-      age: 45,
       registered: 'Ene 1, 2023',
     },
-    country: { name: 'Brasil', flag: 'cif-br' },
-    usage: {
-      value: 22,
-      period: 'Jun 11, 2023 - Jul 10, 2023',
-      color: 'info',
-    },
-    payment: { name: 'Visa', icon: 'cib-cc-visa' },
     activity: 'Hace 5 minutos',
   },
   {
@@ -55,16 +37,8 @@ const tableExample = [
     user: {
       name: 'Carlos Ruiz',
       role: 'Analista',
-      age: 28,
       registered: 'Feb 14, 2023',
     },
-    country: { name: 'Reino Unido', flag: 'cif-gb' },
-    usage: {
-      value: 35,
-      period: 'Jun 11, 2023 - Jul 10, 2023',
-      color: 'warning',
-    },
-    payment: { name: 'American Express', icon: 'cib-cc-amex' },
     activity: 'Hace 20 minutos',
   },
   {
@@ -73,16 +47,8 @@ const tableExample = [
     user: {
       name: 'Sofía Martínez',
       role: 'Inspector',
-      age: 32,
       registered: 'Mar 7, 2023',
     },
-    country: { name: 'España', flag: 'cif-es' },
-    usage: {
-      value: 40,
-      period: 'Jun 11, 2023 - Jul 10, 2023',
-      color: 'primary',
-    },
-    payment: { name: 'Discover', icon: 'cib-cc-discover' },
     activity: 'Hace 1 hora',
   },
   {
@@ -91,16 +57,8 @@ const tableExample = [
     user: {
       name: 'Laura Gómez',
       role: 'Usuario',
-      age: 29,
       registered: 'Abr 22, 2023',
     },
-    country: { name: 'Francia', flag: 'cif-fr' },
-    usage: {
-      value: 28,
-      period: 'Jun 11, 2023 - Jul 10, 2023',
-      color: 'success',
-    },
-    payment: { name: 'Mastercard', icon: 'cib-cc-mastercard' },
     activity: 'Hace 2 horas',
   },
   {
@@ -109,35 +67,15 @@ const tableExample = [
     user: {
       name: 'David López',
       role: 'Administrador',
-      age: 36,
       registered: 'Jun 5, 2023',
     },
-    country: { name: 'Alemania', flag: 'cif-de' },
-    usage: {
-      value: 55,
-      period: 'Jun 11, 2023 - Jul 10, 2023',
-      color: 'danger',
-    },
-    payment: { name: 'Visa', icon: 'cib-cc-visa' },
     activity: 'Hace 30 minutos',
   },
 ];
 
 const Roles_permission = () => {
   const [users, setUsers] = useState(tableExample);
-  const navigate = useNavigate(); // Cambia a useNavigate
-
-  const handleRoleChange = (index, event) => {
-    const newUsers = [...users];
-    newUsers[index].user.role = event.target.value;
-    setUsers(newUsers);
-  };
-
-  const handleAgeChange = (index, event) => {
-    const newUsers = [...users];
-    newUsers[index].user.age = event.target.value;
-    setUsers(newUsers);
-  };
+  const navigate = useNavigate();
 
   const handleDelete = (index) => {
     const newUsers = users.filter((_, i) => i !== index);
@@ -145,8 +83,7 @@ const Roles_permission = () => {
   };
 
   const handleEdit = (index) => {
-    // Redirige a la página de edición de usuario
-    navigate(`/editar-usuario/${users[index].id}`); // Usar id para la redirección
+    navigate(`/editar-usuario/${users[index].id}`);
   };
 
   return (
@@ -162,9 +99,6 @@ const Roles_permission = () => {
                 <i className="cil cil-people"></i>
               </CTableHeaderCell>
               <CTableHeaderCell className="bg-body-tertiary">Nombre Completo</CTableHeaderCell>
-              <CTableHeaderCell className="bg-body-tertiary text-center">
-                Edad
-              </CTableHeaderCell>
               <CTableHeaderCell className="bg-body-tertiary">Cargo</CTableHeaderCell>
               <CTableHeaderCell className="bg-body-tertiary">Actividad</CTableHeaderCell>
               <CTableHeaderCell className="bg-body-tertiary text-center">
@@ -184,23 +118,8 @@ const Roles_permission = () => {
                     Registrado: {item.user.registered}
                   </div>
                 </CTableDataCell>
-                <CTableDataCell className="text-center">
-                  <CFormInput 
-                    type="number" 
-                    value={item.user.age} 
-                    onChange={(e) => handleAgeChange(index, e)} 
-                    className="text-center"
-                  />
-                </CTableDataCell>
                 <CTableDataCell>
-                  <CFormSelect 
-                    value={item.user.role} 
-                    onChange={(e) => handleRoleChange(index, e)} 
-                  >
-                    {roles.map((role, idx) => (
-                      <option key={idx} value={role}>{role}</option>
-                    ))}
-                  </CFormSelect>
+                  {item.user.role}
                 </CTableDataCell>
                 <CTableDataCell>
                   <div className="small text-body-secondary text-nowrap">Último inicio de sesión</div>

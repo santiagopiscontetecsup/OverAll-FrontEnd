@@ -26,20 +26,10 @@ function Header({ children, currentUser }) {
           <CCol xs={12} md={4} className="text-center">
             <CImage src={currentUser?.profileImage} alt="profile-image" className="rounded-circle" width={150} height={150} />
           </CCol>
-          <CCol xs={12} md={4}>
+          <CCol xs={12} md={6}>
             <h5>{currentUser?.name}</h5>
             <p>{currentUser?.access}</p>
             <p>{currentUser?.description}</p> 
-          </CCol>
-          <CCol xs={12} md={4}>
-            <CButton color="link" style={{ textDecoration: 'none', padding: 0, marginRight: '1rem' }}>
-              <CIcon icon={cilBell} className="me-2" />
-              Notificaciones
-            </CButton>
-            <CButton color="link" style={{ textDecoration: 'none', padding: 0 }}>
-              <CIcon icon={cilCommentSquare} className="me-2" />
-              Mensajes
-            </CButton>
           </CCol>
         </CRow>
         {children}

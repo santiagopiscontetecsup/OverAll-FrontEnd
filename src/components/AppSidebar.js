@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
 import {
   CCloseButton,
   CSidebar,
@@ -11,10 +10,9 @@ import {
 } from '@coreui/react'
 
 import { AppSidebarNav } from './AppSidebarNav'
-
-import logoEmpresa from '../assets/Header/logo_principal.png'
-
-import navigation from '../_nav'
+import logoEmpresaExpanded from '../assets/Header/LOG02.png' // Logo para cuando está expandido
+import logoEmpresaCollapsed from '../assets/Header/logo.png'   // Logo para cuando está contraído
+import _nav from '../_nav'  // Asegúrate de que esto importa la función y no el resultado
 
 const AppSidebar = () => {
   const dispatch = useDispatch()
@@ -35,7 +33,11 @@ const AppSidebar = () => {
       <CSidebarHeader className="border-bottom">
         <CSidebarBrand to="/" style={{ textDecoration: 'none' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <img src={logoEmpresa} height={32} alt="Logo Empresa" />
+            <img 
+              src={unfoldable ? logoEmpresaCollapsed : logoEmpresaExpanded} // Cambia la imagen según el estado
+              height={32} 
+              alt="Logo Empresa" 
+            />
           </div>
         </CSidebarBrand>
         <CCloseButton
@@ -44,7 +46,7 @@ const AppSidebar = () => {
           onClick={() => dispatch({ type: 'set', sidebarShow: false })}
         />
       </CSidebarHeader>
-      <AppSidebarNav items={navigation} />
+      <AppSidebarNav items={_nav()} />  {/* Aquí invocas la función para obtener el arreglo */}
       <CSidebarFooter className="border-top d-none d-lg-flex">
         <CSidebarToggler
           onClick={() => dispatch({ type: 'set', sidebarUnfoldable: !unfoldable })}

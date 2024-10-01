@@ -98,9 +98,9 @@ const CrearUsuario = () => {
       }
 
       if (!isPasswordValid) {
-        setPasswordValidationError(true); // Establece el error de validación de contraseña
+        setPasswordValidationError(true); 
       } else {
-        setPasswordValidationError(false); // Resetea el error si la contraseña es válida
+        setPasswordValidationError(false); 
       }
     } else {
       event.preventDefault();
@@ -137,7 +137,7 @@ const CrearUsuario = () => {
           <CFormLabel htmlFor="password">Contraseña</CFormLabel>
           <div className="input-group">
             <CFormInput
-              type={showPassword ? "text" : "password"} // Muestra la contraseña o la oculta
+              type={showPassword ? "text" : "password"} 
               id="password"
               placeholder="Introduce la contraseña"
               required
@@ -145,7 +145,7 @@ const CrearUsuario = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <button type="button" onClick={togglePasswordVisibility} className="btn btn-outline-secondary">
-              {showPassword ? <FaEyeSlash /> : <FaEye />} {/* Ojo abierto o cerrado */}
+              {showPassword ? <FaEyeSlash /> : <FaEye />} 
             </button>
           </div>
           <div className="text-muted">

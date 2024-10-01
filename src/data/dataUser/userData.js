@@ -44,7 +44,7 @@ export const users = [
     access: "Usuario",
     password: "admin123",
     profileImage: "/src/assets/Header/foto_perfil.jpg",
-    description: "Thiago es un usuario común del sistema, con acceso limitado en comparación con los roles administrativos. Se encarga de tareas diarias y de utilizar las funcionalidades del sistema según su nivel de acceso.",
+    description: "Thiago es un Cliente común del sistema, con acceso limitado en comparación con los roles administrativos. Se encarga de tareas diarias y de utilizar las funcionalidades del sistema según su nivel de acceso.",
     companyName: "Cerro Verde"
   },
   {
@@ -56,7 +56,7 @@ export const users = [
     access: "Usuario",
     password: "admin123",
     profileImage: "/src/assets/Header/foto_perfil.jpg",
-    description: "Thiago es un usuario común del sistema, con acceso limitado en comparación con los roles administrativos. Se encarga de tareas diarias y de utilizar las funcionalidades del sistema según su nivel de acceso.",
+    description: "Thiago es un Cliente común del sistema, con acceso limitado en comparación con los roles administrativos. Se encarga de tareas diarias y de utilizar las funcionalidades del sistema según su nivel de acceso.",
     companyName: "Bambas"
   },
   {
